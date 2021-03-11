@@ -5,11 +5,12 @@ using System.Text;
 
 namespace InlamningDB2.Models
 {
-   public class Category
+   public class BookCategory
     {
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+
 
     }
 }

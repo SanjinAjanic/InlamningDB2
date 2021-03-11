@@ -6,11 +6,12 @@ using System.Text;
 
 namespace InlamningDB2.Database
 {
-    class MyContext: DbContext 
+    public class MyContext: DbContext 
     {
         private const string DatabaseName = "WebbShopSanjinAjanic";
         public DbSet<User> Users { get; set; }
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<BookCategory> Categories { get; set; }
+        public DbSet<Books> Book { get; set; }
 
         // TODO: Skapa DbSet för Users (customers)
         // TODO: Skapa DbSet för Category
