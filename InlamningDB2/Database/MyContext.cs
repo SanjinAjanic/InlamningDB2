@@ -12,6 +12,7 @@ namespace InlamningDB2.Database
         public DbSet<User> Users { get; set; }
         public DbSet<BookCategory> Categories { get; set; }
         public DbSet<Books> Book { get; set; }
+        public DbSet<Soldbooks> SooldBook { get; set; }
 
         // TODO: Skapa DbSet för Users (customers)
         // TODO: Skapa DbSet för Category

@@ -58,7 +58,37 @@ namespace InlamningDB2
         {
             return context.Categories.OrderBy(c => c.Name.Contains(keyword)).ToList();
         }
+        public List<Books> GetCategory(int categoryId)
+        {
+            return context.Book.Where(b => b.CategoryId == categoryId).ToList();
+        }
+        public List<Books> GetAvailableBooks(int categoryId)
+        {
+            return context.Book.Where(b => b.Amount > 0 && b.CategoryId == categoryId).ToList();
+        }
+        public Books GetBook(int bookId)
+        {
+            return context.Book.FirstOrDefault(b => b.Id == bookId);
+        }
+        public List<Books> GetBooks(string keyword)
+        {
+            return context.Book.Where(b => b.Titel.Contains(keyword)).ToList();
+        }
+        public List<Books> GetAuthors(string keyword)
+        {
+            return context.Book.Where(b => b.Author == keyword).ToList();
+        }
+        public bool Register(string name, string password, string passwordVerify)
+        {
+            var user = context.Users.FirstOrDefault(u => u.Name == name && u.Password == password);
+            if (user == null && passwordVerify == password)
+            {
+               context.Users.Add(new User { Name = name , Password = password, IsAdmin = false });
 
+               return true;
+            }
+            return false;
+        }
     }
 }
 

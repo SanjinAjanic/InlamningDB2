@@ -4,14 +4,16 @@ using InlamningDB2.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InlamningDB2.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20210312113018_nytt")]
+    partial class nytt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +49,7 @@ namespace InlamningDB2.Migrations
                     b.Property<string>("Author")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("Categoryid")
                         .HasColumnType("int");
 
                     b.Property<int>("Price")
@@ -58,7 +60,7 @@ namespace InlamningDB2.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("Categoryid");
 
                     b.ToTable("Book");
                 });
@@ -134,7 +136,7 @@ namespace InlamningDB2.Migrations
                 {
                     b.HasOne("InlamningDB2.Models.BookCategory", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("Categoryid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
