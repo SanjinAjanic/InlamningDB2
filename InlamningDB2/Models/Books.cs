@@ -15,7 +15,7 @@ namespace InlamningDB2.Models
         public int Price { get; set; }
         public int Amount { get; set; }
 
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
 
         // [ForeignKey("Categoryid")]
         public BookCategory Category { get; set; }

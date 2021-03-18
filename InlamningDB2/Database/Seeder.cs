@@ -33,8 +33,8 @@ namespace InlamningDB2.Database
                 }
                 if (db.Users.Count()==0)
                 {
-                    db.Users.Add(new User { Name = "Administrator", Password = "CodicRulez", IsAdmin = true });
-                    db.Users.Add(new User { Name = "TestCustomer", Password = "Codic2021", IsAdmin = false });
+                    db.Users.Add(new User { Name = "Administrator", Password = "CodicRulez", IsAdmin = true, IsActive = true }); 
+                    db.Users.Add(new User { Name = "TestCustomer", Password = "Codic2021", IsAdmin = false, IsActive = true });
                     
                     db.SaveChanges();
                    

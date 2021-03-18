@@ -15,6 +15,7 @@ namespace InlamningDB2.Models
         public DateTime PurchasedDate { get; set; }
         public int Amount { get; set; }
         public int Price { get; set; }
+        public int? CategoryId { get; set; }
 
         public User  User{ get; set; }
 
