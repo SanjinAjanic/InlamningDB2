@@ -15,7 +15,7 @@ namespace InlamningDB2
             var webbshop = new WebbShopAPI();
             Console.WriteLine("Loggar in Admin");
             int result = webbshop.Login("Administrator", "CodicRulez");
-            Console.WriteLine(result);
+            Console.WriteLine("ID = " + result);
             Console.WriteLine("-------------------------");
 
             Console.WriteLine("Loggar ut andvändare");
@@ -107,6 +107,59 @@ namespace InlamningDB2
             Console.WriteLine("-------------------------");
 
 
+            var listOfUsers = webbshop.ListUsers(3);
+            Console.WriteLine("Listar alla andvädare");
+            foreach (var users in listOfUsers)
+            {
+
+                Console.WriteLine($"{users.Name}");
+
+            }
+            Console.WriteLine("-------------------------");
+
+            var findUsers = webbshop.FindUsers(3,"sa" );
+            Console.WriteLine("Listar andvädare efter input");
+            foreach (var users in findUsers)
+            {
+
+                Console.WriteLine($"{users.Name}");
+
+            }
+            Console.WriteLine("-------------------------");
+
+            trueOrFalse = webbshop.UpdateBook(3,3,"The Shinng","Stephen King",20000); // kollar om den finns och ändrar priset från 200 - 20.000 
+            Console.WriteLine("Ändrar priset på bok");
+            Console.WriteLine(trueOrFalse);
+            Console.WriteLine("-------------------------");
+
+            trueOrFalse = webbshop.Deletebook(3,1); 
+            Console.WriteLine("Minskar amount med 1");
+            Console.WriteLine(trueOrFalse);
+            Console.WriteLine("-------------------------");
+
+            trueOrFalse = webbshop.AddCategory(3, "Documentary");
+            Console.WriteLine("Lägg till en kategori som inte finns");
+            Console.WriteLine(trueOrFalse);
+            Console.WriteLine("-------------------------");
+
+            trueOrFalse = webbshop.AddBookToCategory(3,4,3);
+            Console.WriteLine("Ändrar Cabal till Science Fiction kategorin ");
+            Console.WriteLine(trueOrFalse);
+            Console.WriteLine("-------------------------");
+
+            trueOrFalse = webbshop.UpdateCategory(3,1,"Sport"); /// ändra till något som inte finns
+            Console.WriteLine("Ändrar namn på kategori");
+            Console.WriteLine(trueOrFalse);
+            Console.WriteLine("-------------------------");
+
+            webbshop.Ping(3);
+            Console.WriteLine(webbshop.Ping(3));
+            Console.WriteLine("-------------------------");
+
+            trueOrFalse = webbshop.DeleteCategory(3, 6); 
+            Console.WriteLine("Tar bort Documentary"); // Endast om ingen bok är koppad till den
+            Console.WriteLine(trueOrFalse);
+            Console.WriteLine("-------------------------");
 
 
 
@@ -122,39 +175,34 @@ namespace InlamningDB2
 
 
 
-            //var list = webbshop.ListUsers(3);
-            //foreach (var item in list)
-            //{
-
-            //  Console.WriteLine($"{item.Name}");
-
-            //}
-
-
-            // webbshop.SetAmount(3, 2, 5);
-
-
-            // var id = webbshop.Login("TestCustomer", "Codic2021");
-            //Console.WriteLine("1.Logga in Testuser");
-            //Console.WriteLine(id);
 
 
 
-            //var api = new WebbShopAPI();
-            //var listOfGenre = api.GetCategories();
-            //Console.WriteLine("2.Fråga efter kategorier:");
-            //foreach (var genere in listOfGenre)
-            //{
-
-            //    Console.WriteLine($"{genere.Name}");
-            //}
 
 
-            ////var listOfHorrorBooks = api.GetCategory(1);// Bestämmer villken kategori det ska vara
-            ////foreach (var book in listOfHorrorBooks) // Listar ut titlarna av kategorin
-            ////{
-            ////    Console.WriteLine($"{book.Titel}");
-            ////}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

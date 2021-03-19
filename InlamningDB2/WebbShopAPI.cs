@@ -223,7 +223,7 @@ namespace InlamningDB2
             return false;
         }
         /// <summary>
-        /// 
+        /// ändrar antalet tillgängliga böcker
         /// </summary>
         /// <param name="adminId"></param>
         /// <param name="bookId"></param>
@@ -242,6 +242,11 @@ namespace InlamningDB2
                 }
             }
         }
+        /// <summary>
+        /// Listar alla andvändar
+        /// </summary>
+        /// <param name="adminId"></param>
+        /// <returns></returns>
         public List<User> ListUsers(int adminId)
         {
             var admin = context.Users.FirstOrDefault(a => a.Id == adminId);
@@ -253,6 +258,12 @@ namespace InlamningDB2
             }
             return userList;
         }
+        /// <summary>
+        /// gör sökning på andvändare beroende på input
+        /// </summary>
+        /// <param name="adminId"></param>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
         public List<User> FindUsers(int adminId, string keyword)
         {
             var admin = context.Users.FirstOrDefault(a => a.Id == adminId);
@@ -264,6 +275,15 @@ namespace InlamningDB2
             }
             return userList;
         }
+        /// <summary>
+        /// uppdaterar inforamtion om bok
+        /// </summary>
+        /// <param name="adminId"></param>
+        /// <param name="bookId"></param>
+        /// <param name="title"></param>
+        /// <param name="author"></param>
+        /// <param name="price"></param>
+        /// <returns></returns>
         public bool UpdateBook(int adminId, int bookId, string title, string author, int price)
         {
             var admin = context.Users.FirstOrDefault(a => a.Id == adminId);
@@ -283,7 +303,12 @@ namespace InlamningDB2
             }
             return false;
         }
-
+        /// <summary>
+        /// försöker radera boken
+        /// </summary>
+        /// <param name="adminId"></param>
+        /// <param name="bookId"></param>
+        /// <returns></returns>
        public bool Deletebook(int adminId, int bookId)
         {
             var admin = context.Users.FirstOrDefault(a => a.Id == adminId);
@@ -312,7 +337,12 @@ namespace InlamningDB2
             return false;
             
         }
-
+        /// <summary>
+        /// Lägger till ny eller ändrar på befintlig kategori
+        /// </summary>
+        /// <param name="adminId"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public bool AddCategory(int adminId, string name)
         {
             var admin = context.Users.FirstOrDefault(a => a.Id == adminId);
@@ -328,7 +358,13 @@ namespace InlamningDB2
             }
             return false;
         }
-
+        /// <summary>
+        /// Ändrar bokens kategori efter input
+        /// </summary>
+        /// <param name="adminId"></param>
+        /// <param name="bookId"></param>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
         public bool AddBookToCategory(int adminId, int bookId, int categoryId)
         {
             var admin = context.Users.FirstOrDefault(a => a.Id == adminId);
@@ -343,7 +379,13 @@ namespace InlamningDB2
             }
             return false;
         }
-        
+        /// <summary>
+        /// ändrar namn på kategori
+        /// </summary>
+        /// <param name="adminId"></param>
+        /// <param name="categoryId"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public bool UpdateCategory(int adminId, int categoryId, string name)
         {
             var admin = context.Users.FirstOrDefault(a => a.Id == adminId);
@@ -351,7 +393,7 @@ namespace InlamningDB2
             if (admin != null && admin.IsAdmin == true && admin.SessionTimer > DateTime.Now.AddMinutes(-15) && admin.IsActive == true && category != null && category.Name != name)
             {
                 category.Name = name;
-                context.Update(name);
+                context.Update(category);
                 context.SaveChanges();
                 return true;
             }
@@ -359,7 +401,7 @@ namespace InlamningDB2
             return false;
         }
         /// <summary>
-        /// Tar bort katergori ifall det inte finns kopplat till kategori
+        /// Tar bort katergori ifall det inte finns kopplat till bok
         /// </summary>
         /// <param name="adminId"></param>
         /// <param name="categoryId"></param>
@@ -385,16 +427,23 @@ namespace InlamningDB2
 
         }
        
-        /*
+        /// <summary>
+        /// Huvudsyfte att admin lägger till en andvändare
+        /// </summary>
+        /// <param name="adminId"></param>
+        /// <param name="name"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public bool AddUser(int adminId, string name, string password)
         {
             var admin = context.Users.FirstOrDefault(a => a.Id == adminId);
             var user = context.Users.FirstOrDefault(u => u.Name == username && u.Password == );
 
+
         
 
         }
-        */
+        
 
     }
 }
