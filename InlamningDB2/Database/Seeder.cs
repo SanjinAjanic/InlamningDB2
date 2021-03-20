@@ -19,9 +19,7 @@ namespace InlamningDB2.Database
                     db.Categories.Add(new BookCategory { Name = "Comedy" });
                     db.Categories.Add(new BookCategory { Name = "Science Fiction" });
                     db.Categories.Add(new BookCategory { Name = "Romance" });
-                    db.SaveChanges();
-                    
-                  
+                    db.SaveChanges();      
                 }
                 if (db.Book.Count()==0)
                 {
@@ -35,12 +33,9 @@ namespace InlamningDB2.Database
                 {
                     db.Users.Add(new User { Name = "Administrator", Password = "CodicRulez", IsAdmin = true, IsActive = true }); 
                     db.Users.Add(new User { Name = "TestCustomer", Password = "Codic2021", IsAdmin = false, IsActive = true });
-                    
                     db.SaveChanges();
-                   
                 }
             }
-
         }
     }
 }

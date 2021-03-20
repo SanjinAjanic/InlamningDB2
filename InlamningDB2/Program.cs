@@ -10,16 +10,10 @@ namespace InlamningDB2
             
             Seeder.Seed();
 
-            
-      
             var webbshop = new WebbShopAPI();
             Console.WriteLine("Loggar in Admin");
-            int result = webbshop.Login("Administrator", "CodicRulez");
-            Console.WriteLine("ID = " + result);
-            Console.WriteLine("-------------------------");
-
-            Console.WriteLine("Loggar ut andvändare");
-            webbshop.Logout(3);
+            int adminId = webbshop.Login("Administrator", "CodicRulez");
+            Console.WriteLine("ID = " + adminId);
             Console.WriteLine("-------------------------");
 
             var list = webbshop.GetCategories();
@@ -87,7 +81,7 @@ namespace InlamningDB2
             Console.WriteLine("-------------------------");
 
             webbshop.Login("Administrator", "CodicRulez");
-            bool trueOrFalse = webbshop.BuyBook(3, 2);
+            bool trueOrFalse = webbshop.BuyBook(adminId, 2);
             Console.WriteLine("Köper boken Doctor Sleep ");
             Console.WriteLine(trueOrFalse);
             Console.WriteLine("-------------------------");
@@ -97,17 +91,17 @@ namespace InlamningDB2
             Console.WriteLine(trueOrFalse);
             Console.WriteLine("-------------------------");
 
-            trueOrFalse = webbshop.Addbook(3, 7, "SanjinsBok", "Sanjin", 2000, 2);
+            trueOrFalse = webbshop.Addbook(adminId, 7, "SanjinsBok", "Sanjin", 2000, 2);
             Console.WriteLine("Lägger till en bok");
             Console.WriteLine(trueOrFalse);
             Console.WriteLine("-------------------------");
 
-            webbshop.SetAmount(3, 2, 5);
+            webbshop.SetAmount(adminId, 2, 5);
             Console.WriteLine("Ändrar antalet tillgängliga böcker");
             Console.WriteLine("-------------------------");
 
 
-            var listOfUsers = webbshop.ListUsers(3);
+            var listOfUsers = webbshop.ListUsers(adminId);
             Console.WriteLine("Listar alla andvädare");
             foreach (var users in listOfUsers)
             {
@@ -117,7 +111,7 @@ namespace InlamningDB2
             }
             Console.WriteLine("-------------------------");
 
-            var findUsers = webbshop.FindUsers(3,"sa" );
+            var findUsers = webbshop.FindUsers(adminId,"sa" );
             Console.WriteLine("Listar andvädare efter input");
             foreach (var users in findUsers)
             {
@@ -127,39 +121,55 @@ namespace InlamningDB2
             }
             Console.WriteLine("-------------------------");
 
-            trueOrFalse = webbshop.UpdateBook(3,3,"The Shinng","Stephen King",20000); // kollar om den finns och ändrar priset från 200 - 20.000 
+            trueOrFalse = webbshop.UpdateBook(adminId,3,"The Shinng","Stephen King",20000); // kollar om den finns och ändrar priset från 200 - 20.000 
             Console.WriteLine("Ändrar priset på bok");
             Console.WriteLine(trueOrFalse);
             Console.WriteLine("-------------------------");
 
-            trueOrFalse = webbshop.Deletebook(3,1); 
+            trueOrFalse = webbshop.Deletebook(adminId,1); 
             Console.WriteLine("Minskar amount med 1");
             Console.WriteLine(trueOrFalse);
             Console.WriteLine("-------------------------");
 
-            trueOrFalse = webbshop.AddCategory(3, "Documentary");
+            trueOrFalse = webbshop.AddCategory(adminId, "Documentary");
             Console.WriteLine("Lägg till en kategori som inte finns");
             Console.WriteLine(trueOrFalse);
             Console.WriteLine("-------------------------");
 
-            trueOrFalse = webbshop.AddBookToCategory(3,4,3);
+            trueOrFalse = webbshop.AddBookToCategory(adminId,4,3);
             Console.WriteLine("Ändrar Cabal till Science Fiction kategorin ");
             Console.WriteLine(trueOrFalse);
             Console.WriteLine("-------------------------");
 
-            trueOrFalse = webbshop.UpdateCategory(3,1,"Sport"); /// ändra till något som inte finns
+            trueOrFalse = webbshop.UpdateCategory(adminId,1,"Sport"); /// ändra till något som inte finns
             Console.WriteLine("Ändrar namn på kategori");
             Console.WriteLine(trueOrFalse);
             Console.WriteLine("-------------------------");
 
-            webbshop.Ping(3);
-            Console.WriteLine(webbshop.Ping(3));
+            Console.WriteLine(webbshop.Ping(adminId));
             Console.WriteLine("-------------------------");
 
-            trueOrFalse = webbshop.DeleteCategory(3, 6); 
+            trueOrFalse = webbshop.DeleteCategory(adminId, 6); 
             Console.WriteLine("Tar bort Documentary"); // Endast om ingen bok är koppad till den
             Console.WriteLine(trueOrFalse);
             Console.WriteLine("-------------------------");
+
+            trueOrFalse = webbshop.AddUser(adminId, "Madrid", "");
+            Console.WriteLine("Testar och lägga till user utan password");
+            Console.WriteLine(trueOrFalse);
+
+            trueOrFalse = webbshop.AddUser(adminId, "Madrid", "real");
+            Console.WriteLine("Testar att lägga till user med password");
+            Console.WriteLine(trueOrFalse);
+            Console.WriteLine("-------------------------");
+
+            Console.WriteLine("Loggar ut admin");
+            webbshop.Logout(adminId);
+            Console.WriteLine("-------------------------");
+
+
+
+
 
 
 

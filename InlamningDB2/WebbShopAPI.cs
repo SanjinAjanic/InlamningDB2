@@ -14,43 +14,34 @@ namespace InlamningDB2
         private static MyContext context = new MyContext();
         public int Login(string username, string password)
         {
-
-            var user = context.Users.FirstOrDefault(u => u.Name == username && u.Password == password && u.IsActive);//SÖKNINGAR för överiga klasser detta är link-kod
-
+            var user = context.Users.FirstOrDefault(u => u.Name == username && u.Password == password && u.IsActive);
             if (user != null)
             {
                 user.LastLogin = DateTime.Now;
                 user.SessionTimer = DateTime.Now;
                 context.Users.Update(user);
                 context.SaveChanges();
-                return user.Id; // kolla om det är null och retunera informationen
+                return user.Id;
             }
 
-            // TODO: Kontrollera med databasen om andvändaren finns
-            // TODO: Implementera metoden
-            return 0; // 0 = user dosen't exist
+            return 0;
         }
+
         /// <summary>
         /// Loggar ut andvändare och uppdaterar SessionTimer till minValue
         /// </summary>
         /// <param name="id"></param>
         public void Logout(int id)
         {
-
-            var user = context.Users.FirstOrDefault(u => u.Id == id && u.SessionTimer > DateTime.Now.AddMinutes(-15));//SÖKNINGAR för överiga klasser
+            var user = context.Users.FirstOrDefault(u => u.Id == id );
             if (user != null)
             {
-
                 user.SessionTimer = DateTime.MinValue;
                 context.Users.Update(user);
                 context.SaveChanges();
-
             }
-
-            // TODO: Implementera metoden
-            // TODO: Sätt timer till noll
-
         }
+
         /// <summary>
         /// Sortera kategorierna i en lista
         /// </summary>
@@ -69,6 +60,7 @@ namespace InlamningDB2
         {
             return context.Categories.Where(c => c.Name.Contains(keyword)).OrderBy(c => c.Name).ToList();
         }
+
         /// <summary>
         /// En lista med böcker baserat på kategori
         /// </summary>
@@ -78,6 +70,7 @@ namespace InlamningDB2
         {
             return context.Book.Where(b => b.CategoryId == categoryId).ToList();
         }
+
         /// <summary>
         /// Retunerar alla tillgängliga böcker i den kategorin man väljer
         /// </summary>
@@ -87,6 +80,7 @@ namespace InlamningDB2
         {
             return context.Book.Where(b => b.Amount > 0 && b.CategoryId == categoryId).ToList();
         }
+
         /// <summary>
         /// retunerar en bok baserat på ID
         /// </summary>
@@ -96,6 +90,7 @@ namespace InlamningDB2
         {
             return context.Book.FirstOrDefault(b => b.Id == bookId);
         }
+
         /// <summary>
         /// Bokens tiltel med sökord
         /// </summary>
@@ -105,6 +100,7 @@ namespace InlamningDB2
         {
             return context.Book.Where(b => b.Titel.Contains(keyword)).ToList();
         }
+
         /// <summary>
         /// bokens författare med sökord
         /// </summary>
@@ -114,6 +110,7 @@ namespace InlamningDB2
         {
             return context.Book.Where(b => b.Author == keyword).ToList();
         }
+
         /// <summary>
         /// koperar över den solda boken till köpta böcker
         /// </summary>
@@ -141,9 +138,8 @@ namespace InlamningDB2
                     context.SaveChanges();
                     return true;
                 }
-                
-
             }
+
             return false;
         }
 
@@ -164,6 +160,7 @@ namespace InlamningDB2
             }
             return string.Empty;
         }
+
         /// <summary>
         /// Skapar en andvändare
         /// </summary>
@@ -178,11 +175,12 @@ namespace InlamningDB2
             {
                 context.Users.Add(new User { Name = name, Password = password, IsAdmin = false, IsActive = true });
                 context.SaveChanges();
-
                 return true;
             }
+
             return false;
         }
+
         /// <summary>
         /// Lägger till bok och ökar amount
         /// </summary>
@@ -220,8 +218,10 @@ namespace InlamningDB2
                 }
                 
             }
+
             return false;
         }
+
         /// <summary>
         /// ändrar antalet tillgängliga böcker
         /// </summary>
@@ -242,6 +242,7 @@ namespace InlamningDB2
                 }
             }
         }
+
         /// <summary>
         /// Listar alla andvändar
         /// </summary>
@@ -256,8 +257,10 @@ namespace InlamningDB2
                 userList = context.Users.ToList();
                 return userList;
             }
+
             return userList;
         }
+
         /// <summary>
         /// gör sökning på andvändare beroende på input
         /// </summary>
@@ -273,8 +276,10 @@ namespace InlamningDB2
                 userList = context.Users.Where(u => u.Name.Contains(keyword)).ToList();
                 return userList;
             }
+
             return userList;
         }
+
         /// <summary>
         /// uppdaterar inforamtion om bok
         /// </summary>
@@ -290,7 +295,6 @@ namespace InlamningDB2
             var book = context.Book.FirstOrDefault(b => b.Id == bookId);
             if (admin != null && admin.IsAdmin == true && admin.SessionTimer > DateTime.Now.AddMinutes(-15)&& admin.IsActive == true)
             {
-                
                 if (book!=null)
                 {
                     book.Titel = title;
@@ -301,8 +305,10 @@ namespace InlamningDB2
                     return true;
                 }
             }
+
             return false;
         }
+
         /// <summary>
         /// försöker radera boken
         /// </summary>
@@ -317,7 +323,6 @@ namespace InlamningDB2
             {
                 if (book!=null)
                 {
-
                     if (book.Amount > 1)
                     {
                         book.Amount--;
@@ -331,12 +336,12 @@ namespace InlamningDB2
                         context.SaveChanges();
                         return true;
                     }
-
                 }
             }
+
             return false;
-            
         }
+
         /// <summary>
         /// Lägger till ny eller ändrar på befintlig kategori
         /// </summary>
@@ -356,8 +361,10 @@ namespace InlamningDB2
                     return true;
                 }
             }
+
             return false;
         }
+
         /// <summary>
         /// Ändrar bokens kategori efter input
         /// </summary>
@@ -377,8 +384,10 @@ namespace InlamningDB2
                 context.SaveChanges();
                 return true;
             }
+
             return false;
         }
+
         /// <summary>
         /// ändrar namn på kategori
         /// </summary>
@@ -400,6 +409,7 @@ namespace InlamningDB2
 
             return false;
         }
+
         /// <summary>
         /// Tar bort katergori ifall det inte finns kopplat till bok
         /// </summary>
@@ -422,9 +432,8 @@ namespace InlamningDB2
                 }
 
             }
+
             return false;
-
-
         }
        
         /// <summary>
@@ -436,15 +445,24 @@ namespace InlamningDB2
         /// <returns></returns>
         public bool AddUser(int adminId, string name, string password)
         {
-            var admin = context.Users.FirstOrDefault(a => a.Id == adminId);
-            var user = context.Users.FirstOrDefault(u => u.Name == username && u.Password == );
+            var admin = context.Users.FirstOrDefault(a => a.Id == adminId && a.IsAdmin && a.IsActive && a.SessionTimer > DateTime.Now.AddMinutes (-15) );
+            var user = context.Users.FirstOrDefault(u => u.Name == name && u.Password == password);
+            if (admin !=null&& user == null && password.Length != 0)
+            {
+                context.Users.Add(new User 
+                { 
+                    Name = name,
+                    Password = password,
+                    IsActive = true,
+                    IsAdmin = false 
+                });
 
+                context.SaveChanges();
+                return true;
+            }
 
-        
-
+            return false;
         }
-        
-
     }
 }
 

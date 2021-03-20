@@ -14,15 +14,6 @@ namespace InlamningDB2.Database
         public DbSet<Books> Book { get; set; }
         public DbSet<Soldbooks> SooldBook { get; set; }
 
-        // TODO: Skapa DbSet för Users (customers)
-        // TODO: Skapa DbSet för Category
-        // TODO: Skapa DbSet för Books
-        // TODO: Skapa DbSet för SoldBooks
-
-
-
-
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer($@"Data Source=(localdb)\MSSQLLocalDB;Integrated Security=true;database={DatabaseName}");

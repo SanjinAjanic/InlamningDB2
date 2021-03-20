@@ -20,7 +20,5 @@ namespace InlamningDB2.Models
         // [ForeignKey("Categoryid")]
         public BookCategory Category { get; set; }
 
-
-
     }
 }

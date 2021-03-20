@@ -19,8 +19,5 @@ namespace InlamningDB2.Models
 
         public User  User{ get; set; }
 
-        
-
-
     }
 }
