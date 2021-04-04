@@ -12,6 +12,12 @@ namespace InlamningDB2
     public class WebbShopAPI
     {
         private static MyContext context = new MyContext();
+
+        public object Login()
+        {
+            throw new NotImplementedException();
+        }
+
         public int Login(string username, string password)
         {
             var user = context.Users.FirstOrDefault(u => u.Name == username && u.Password == password && u.IsActive);
@@ -48,7 +54,7 @@ namespace InlamningDB2
         /// <returns></returns>
         public List<BookCategory> GetCategories()
         {
-            return context.Categories.OrderBy(c => c.Name).ToList();
+            return context.Categories.OrderBy(c => c.Id).ToList();
         }
 
         /// <summary>
@@ -108,7 +114,7 @@ namespace InlamningDB2
         /// <returns></returns>
         public List<Books> GetAuthors(string keyword)
         {
-            return context.Book.Where(b => b.Author == keyword).ToList();
+            return context.Book.Where(b => b.Author.ToLower() .Contains(keyword.ToLower())).ToList();
         }
 
         /// <summary>
@@ -134,6 +140,7 @@ namespace InlamningDB2
                         PurchasedDate = DateTime.Now,
                         User = user
                     });
+                    context.SaveChanges();
                     book.Amount--;
                     context.SaveChanges();
                     return true;
@@ -330,7 +337,7 @@ namespace InlamningDB2
                         context.SaveChanges();
                         return true;
                     }
-                    if (book.Amount == 1)
+                    if (book.Amount == 0)
                     {
                         context.Remove(book);
                         context.SaveChanges();
@@ -435,6 +442,13 @@ namespace InlamningDB2
 
             return false;
         }
+
+        public bool UserIsAdmin(int userId)
+        {
+            var user = context.Users.FirstOrDefault(u => u.Id == userId && u.IsAdmin == true);
+            return user != null;
+        }
+        
        
         /// <summary>
         /// Huvudsyfte att admin lägger till en andvändare
